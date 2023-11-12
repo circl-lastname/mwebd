@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "hashmap.h"
+#include <mwebd/hashmap.h>
 
 static uint8_t hash_xor[] = {
   170,226,22, 201,181,127,246,82, 0,  217,82, 121,130,194,165,167,

@@ -6,7 +6,7 @@ generate_ninja () {
   
 cat << EOF >> build.ninja
 rule cc
-  command = $CC -c \$in -O2 -Wall -MD -MF \$out.d -o \$out
+  command = $CC -c \$in -O2 -Wall -Iinclude -MD -MF \$out.d -o \$out
   depfile = \$out.d
   description = Compiling C object \$out
 
