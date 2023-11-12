@@ -1,0 +1,38 @@
+#!/bin/sh
+set -e
+
+generate_ninja () {
+  echo -n > build.ninja
+  
+cat << EOF >> build.ninja
+rule cc
+  command = $CC -c \$in -O2 -Wall -MD -MF \$out.d -o \$out
+  depfile = \$out.d
+  description = Compiling C object \$out
+
+rule ld
+  command = $CC \$in -s -o \$out
+  description = Linking executable \$out
+
+EOF
+  
+  cd src
+  files=$(echo *.c)
+  cd ..
+  
+  objects=
+  
+  for file in $files; do
+    object="build/$(echo $file | sed "s/\\.c$/.o/")"
+    objects="$objects$object "
+    
+    echo "build $object: cc src/$file" >> build.ninja
+  done
+  
+  echo "build bin/mwebd: ld ${objects}" >> build.ninja
+  
+  echo "default bin/mwebd" >> build.ninja
+}
+
+CC=${CC:-gcc}
+generate_ninja
