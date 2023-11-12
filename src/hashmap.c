@@ -53,9 +53,9 @@ bool hashmap_add(hashmap_t* hashmap, uint8_t* name, size_t name_size, void* data
   
   for (unsigned i = 0; i < name_size; i += 2) {
     if (name_size < i+2) {
-      hash ^= (name[i] ^ hash_xor[i % 256]);
+      hash += (name[i] ^ hash_xor[i % 256]);
     } else {
-      hash ^= (name[i] ^ hash_xor[i % 256]) | ((name[i+1] ^ hash_xor[(i+1) % 256]) << 8);
+      hash += (name[i] ^ hash_xor[i % 256]) | ((name[i+1] ^ hash_xor[(i+1) % 256]) << 8);
     }
   }
   
@@ -114,9 +114,9 @@ void* hashmap_get(hashmap_t* hashmap, uint8_t* name, size_t name_size) {
   
   for (unsigned i = 0; i < name_size; i += 2) {
     if (name_size < i+2) {
-      hash ^= (name[i] ^ hash_xor[i % 256]);
+      hash += (name[i] ^ hash_xor[i % 256]);
     } else {
-      hash ^= (name[i] ^ hash_xor[i % 256]) | ((name[i+1] ^ hash_xor[(i+1) % 256]) << 8);
+      hash += (name[i] ^ hash_xor[i % 256]) | ((name[i+1] ^ hash_xor[(i+1) % 256]) << 8);
     }
   }
   
