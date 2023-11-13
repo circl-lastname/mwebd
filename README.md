@@ -1,2 +1,2 @@
 # MWebD
-Modular HTTP server and frontend runtime (WIP)
+Modular HTTP server and backend runtime (WIP)
