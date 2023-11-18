@@ -27,8 +27,9 @@ static uint8_t hash_xor[] = {
 struct hashmap_option {
   uint8_t* name;
   size_t name_size;
+  free_func_t* name_free_func;
   void* data;
-  free_func_t* free_func;
+  free_func_t* data_free_func;
 };
 
 struct hashmap_options {
@@ -48,7 +49,7 @@ hashmap_t* hashmap_create() {
   return calloc(1, sizeof(hashmap_t));
 }
 
-bool hashmap_add(hashmap_t* hashmap, uint8_t* name, size_t name_size, void* data, free_func_t* free_func) {
+bool hashmap_add(hashmap_t* hashmap, uint8_t* name, size_t name_size, free_func_t* name_free_func, void* data, free_func_t* data_free_func) {
   uint16_t hash = 0;
   
   for (unsigned i = 0; i < name_size; i += 2) {
@@ -88,8 +89,9 @@ bool hashmap_add(hashmap_t* hashmap, uint8_t* name, size_t name_size, void* data
     options->amount = 1;
     options->options[0].name = name;
     options->options[0].name_size = name_size;
+    options->options[0].name_free_func = name_free_func;
     options->options[0].data = data;
-    options->options[0].free_func = free_func;
+    options->options[0].data_free_func = data_free_func;
   } else {
     options = realloc(options, sizeof(struct hashmap_options) + (options->amount+1)*sizeof(struct hashmap_option));
     
@@ -101,8 +103,9 @@ bool hashmap_add(hashmap_t* hashmap, uint8_t* name, size_t name_size, void* data
     
     options->options[options->amount].name = name;
     options->options[options->amount].name_size = name_size;
+    options->options[options->amount].name_free_func = name_free_func;
     options->options[options->amount].data = data;
-    options->options[options->amount].free_func = free_func;
+    options->options[options->amount].data_free_func = data_free_func;
     options->amount++;
   }
   
@@ -158,8 +161,11 @@ void hashmap_free(hashmap_t* hashmap) {
         
         if (options) {
           for (unsigned k = 0; k < options->amount; k++) {
-            if (options->options[k].free_func) {
-              options->options[k].free_func(options->options[k].data);
+            if (options->options[k].name_free_func) {
+              options->options[k].name_free_func(options->options[k].name);
+            }
+            if (options->options[k].data_free_func) {
+              options->options[k].data_free_func(options->options[k].data);
             }
           }
           
