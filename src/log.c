@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#include <mwebd/log.h>
+
 void log_info(char* format, ...) {
   va_list arguments;
   va_start(arguments, format);

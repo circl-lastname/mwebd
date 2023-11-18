@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <mwebd/config.h>
 #include <mwebd/hashmap.h>
 #include <mwebd/log.h>
 

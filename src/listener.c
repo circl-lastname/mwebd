@@ -8,6 +8,8 @@
 #include <mwebd/config.h>
 #include <mwebd/log.h>
 
+#include "listener.h"
+
 void listener_start() {
   int main_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
   
