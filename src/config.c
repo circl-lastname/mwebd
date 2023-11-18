@@ -105,7 +105,7 @@ static char* read_value() {
   return string;
 }
 
-void config_init(char* filename) {
+void config_load(char* filename) {
   config_file = fopen(filename, "r");
   if (!config_file) {
     error(strerror(errno));

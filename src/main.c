@@ -11,7 +11,7 @@ int main(int argc, char** argv) {
     return 1;
   }
   
-  config_init(argv[1]);
+  config_load(argv[1]);
   
   return 0;
 }
