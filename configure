@@ -11,7 +11,7 @@ rule cc
   description = Compiling C object \$out
 
 rule ld
-  command = $CC \$in -s -o \$out
+  command = $CC \$in -s -pthread -o \$out
   description = Linking executable \$out
 
 EOF
