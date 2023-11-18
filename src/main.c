@@ -1,6 +1,5 @@
-#include <stdio.h>
-
 #include <mwebd/config.h>
+#include <mwebd/endpoint.h>
 #include <mwebd/log.h>
 
 #include "listener.h"
@@ -15,6 +14,8 @@ int main(int argc, char** argv) {
   
   config_load(argv[1]);
   log_info("Loaded config %s\n", argv[1]);
+  
+  endpoint_init();
   
   listener_start();
   
