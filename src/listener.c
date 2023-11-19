@@ -35,8 +35,13 @@ void listener_start() {
   };
   
   while (bind(main_socket, (struct sockaddr*)&address, sizeof(struct sockaddr_in)) < 0) {
-    log_warn("Failed to bind socket: %s, retrying...\n", strerror(errno));
-    sleep(1);
+    if (errno == EADDRINUSE) {
+      log_warn("Failed to bind socket: %s, retrying...\n", strerror(errno));
+      sleep(1);
+    } else {
+      log_crit("Failed to bind socket: %s\n", strerror(errno));
+      exit(1);
+    }
   }
   
   if (listen(main_socket, 256) < 0) {
