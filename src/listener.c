@@ -1,5 +1,6 @@
 #include <errno.h>
 #include <netinet/ip.h>
+#include <pthread.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,6 +9,7 @@
 #include <mwebd/config.h>
 #include <mwebd/log.h>
 
+#include "connection.h"
 #include "listener.h"
 
 void listener_start() {
@@ -59,6 +61,16 @@ void listener_start() {
       continue;
     }
     
-    close(connection);
+    pthread_t thread;
+    
+    if (pthread_create(&thread, NULL, connection_main, (void*)(long)connection) != 0) {
+      close(connection);
+      log_warn("Failed to create thread for connection\n");
+      continue;
+    }
+    
+    if (pthread_detach(thread) != 0) {
+      log_warn("Failed to detach connection thread\n");
+    }
   }
 }
