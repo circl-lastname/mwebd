@@ -41,7 +41,7 @@ void listener_start() {
       log_warn("Failed to bind socket: %s, retrying...\n", strerror(errno));
       sleep(1);
     } else {
-      log_crit("Failed to bind socket: %s\n", strerror(errno));
+      log_crit("Failed to bind socket to port %u: %s\n", port, strerror(errno));
       exit(1);
     }
   }
