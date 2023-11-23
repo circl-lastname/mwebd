@@ -18,7 +18,7 @@ void log_warn(char* format, ...) {
   va_start(arguments, format);
   
   if (isatty(STDERR_FILENO)) {
-    fputs("\x1b[33m", stderr);
+    fputs("\x1b[93m", stderr);
     vfprintf(stderr, format, arguments);
     fputs("\x1b[0m", stderr);
   } else {
