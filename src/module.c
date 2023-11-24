@@ -58,6 +58,11 @@ void module_load() {
       case '\\':
         i++;
         buf[buf_i] = modules_string[i];
+        
+        if (modules_string[i] == '\0') {
+          load_module();
+          return;
+        }
       break;
       default:
         buf[buf_i] = modules_string[i];
