@@ -3,6 +3,7 @@
 #include <mwebd/log.h>
 
 #include "listener.h"
+#include "module.h"
 
 int main(int argc, char** argv) {
   log_info("MWebD - Modular HTTP server and backend runtime\n");
@@ -16,6 +17,7 @@ int main(int argc, char** argv) {
   log_info("Loaded config %s\n", argv[1]);
   
   endpoint_init();
+  module_load();
   
   listener_start();
   
