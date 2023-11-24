@@ -30,7 +30,7 @@ static void load_module() {
   log_info("Loaded module %s\n", buf);
 }
 
-void module_load() {
+void module_init() {
   char* modules_string = config_get("modules");
   
   if (!modules_string) {

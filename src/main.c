@@ -15,10 +15,10 @@ int main(int argc, char** argv) {
     return 1;
   }
   
-  config_load(argv[1]);
+  config_init(argv[1]);
   log_info("Loaded config %s\n", argv[1]);
   endpoint_init();
-  module_load();
+  module_init();
   listener_start();
   
   return 0;
