@@ -17,10 +17,8 @@ int main(int argc, char** argv) {
   
   config_load(argv[1]);
   log_info("Loaded config %s\n", argv[1]);
-  
   endpoint_init();
   module_load();
-  
   listener_start();
   
   return 0;
