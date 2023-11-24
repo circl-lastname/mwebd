@@ -6,6 +6,8 @@
 #include "module.h"
 
 int main(int argc, char** argv) {
+  log_init();
+  
   log_info("MWebD - Modular HTTP server and backend runtime\n");
   
   if (argc != 2) {
