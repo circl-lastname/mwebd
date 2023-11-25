@@ -71,5 +71,10 @@ void module_init() {
     
     buf_i++;
     i++;
+    
+    if (buf_i == 1024) {
+      log_crit("Module filename too long\n");
+      return;
+    }
   }
 }
