@@ -10,7 +10,7 @@
 static char buf[1024];
 
 static void load_module() {
-  void* dl_handle = dlopen(buf, RTLD_LAZY);
+  void* dl_handle = dlopen(buf, RTLD_NOW);
   
   if (!dl_handle) {
     log_crit("Failed to load module: %s\n", dlerror());
