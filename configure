@@ -1,6 +1,23 @@
 #!/bin/sh
 set -e
 
+generate_module () {
+  cd src/modules/$1
+  files=$(echo *.c)
+  cd ../../..
+  
+  objects=
+  
+  for file in $files; do
+    object="build/modules/$1/$(echo $file | sed "s/\\.c$/.o/")"
+    objects="$objects$object "
+    
+    echo "build $object: cc_module src/modules/$1/$file" >> build.ninja
+  done
+  
+  echo "build bin/$1.so: ld_module ${objects}" >> build.ninja
+}
+
 generate_ninja () {
   echo -n > build.ninja
   
@@ -11,8 +28,17 @@ rule cc
   description = Compiling C object \$out
 
 rule ld
-  command = $CC \$in -s -pthread -ldl -o \$out
+  command = $CC \$in -s -rdynamic -pthread -ldl -o \$out
   description = Linking executable \$out
+
+rule cc_module
+  command = $CC -c \$in -O2 -fPIC -Wall -Iinclude -MD -MF \$out.d -o \$out
+  depfile = \$out.d
+  description = Compiling C object \$out
+
+rule ld_module
+  command = $CC \$in -s -shared -o \$out
+  description = Linking shared library \$out
 
 EOF
   
@@ -31,7 +57,9 @@ EOF
   
   echo "build bin/mwebd: ld ${objects}" >> build.ninja
   
-  echo "default bin/mwebd" >> build.ninja
+  generate_module hello_world
+  
+  echo "default bin/mwebd bin/hello_world.so" >> build.ninja
 }
 
 CC=${CC:-gcc}
