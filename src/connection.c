@@ -1,6 +1,9 @@
 #include <pthread.h>
 #include <unistd.h>
 
+#include <mwebd/hashmap.h>
+#include <mwebd/http.h>
+
 #include "connection.h"
 
 _Thread_local static int connection;
@@ -61,6 +64,10 @@ static void read_request() {
 
 void* connection_main(void* connection_raw) {
   connection = (long)connection_raw;
+  
+  method_t method;
+  char* uri;
+  hashmap_t* request_headers;
   
   read_request();
   
