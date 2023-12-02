@@ -5,7 +5,8 @@
 #define ENUMERATE_STATUSES(f) \
   f(200) \
   f(413) \
-  f(500)
+  f(500) \
+  f(501)
 
 typedef enum {
   METHOD_GET,

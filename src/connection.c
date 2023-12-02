@@ -71,7 +71,7 @@ void* connection_main(void* connection_raw) {
   
   read_request();
   
-  http_default_response(connection, STATUS_200);
+  http_default_response(connection, http_parse(request_buf, request_size, &method, &uri, &request_headers));
   
   close(connection);
   pthread_exit(NULL);
