@@ -12,9 +12,9 @@ char response_413[] =
   "Server: MWebD\r\n"
   "Connection: close\r\n"
   "Content-Type: text/html\r\n"
-  "Content-Length: 211\r\n"
+  "Content-Length: 185\r\n"
   "\r\n"
-  "<!doctype html><html><head><title>413 Content Too Large</title></head><body><h1>413 Content Too Large</h1><p>The server rejected your request as it is larger than 16 KiB.</p><hr><p><i>MWebD</i></p></body></html>";
+  "<!doctype html><html><head><title>413 Content Too Large</title></head><body><h1>413 Content Too Large</h1><p>Your request is larger than 16 KiB.</p><hr><p><i>MWebD</i></p></body></html>";
 
 char response_500[] =
   "HTTP/1.1 500 Internal Server Error\r\n"
@@ -30,6 +30,6 @@ char response_501[] =
   "Server: MWebD\r\n"
   "Connection: close\r\n"
   "Content-Type: text/html\r\n"
-  "Content-Length: 211\r\n"
+  "Content-Length: 186\r\n"
   "\r\n"
-  "<!doctype html><html><head><title>501 Not Implemented</title></head><body><h1>501 Not Implemented</h1><p>The server rejected your request as its method is not recognized.</p><hr><p><i>MWebD</i></p></body></html>";
+  "<!doctype html><html><head><title>501 Not Implemented</title></head><body><h1>501 Not Implemented</h1><p>Your request's method is not recognized.</p><hr><p><i>MWebD</i></p></body></html>";
