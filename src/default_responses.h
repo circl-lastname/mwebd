@@ -18,6 +18,6 @@ char response_500[] =
   "HTTP/1.1 500 Internal Server Error\r\n"
   "Server: MWebD\r\n"
   "Connection: close\r\n"
-  "Content-Length: 194\r\n"
+  "Content-Length: 206\r\n"
   "\r\n"
   "<!doctype html><html><head><title>500 Internal Server Error</title></head><body><h1>500 Internal Server Error</h1><p>An error occurred while processing your request.</p><hr><p><i>MWebD</i></p></body></html>";
