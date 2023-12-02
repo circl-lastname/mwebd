@@ -18,7 +18,7 @@ static void read_request() {
   
   while (true) {
     if (request_size == 16384) {
-      // TODO: actually respond
+      http_error_respond(connection, STATUS_413);
       close(connection);
       pthread_exit(NULL);
     }
@@ -70,6 +70,8 @@ void* connection_main(void* connection_raw) {
   hashmap_t* request_headers;
   
   read_request();
+  
+  http_error_respond(connection, STATUS_200);
   
   close(connection);
   pthread_exit(NULL);
