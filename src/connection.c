@@ -67,8 +67,8 @@ void* connection_main(void* connection_raw) {
   connection = (long)connection_raw;
   
   method_t method;
-  char* uri;
-  hashmap_t* request_headers;
+  char* uri = NULL;
+  hashmap_t* request_headers = NULL;
   
   read_request();
   
