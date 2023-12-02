@@ -18,7 +18,7 @@ static void read_request() {
   
   while (true) {
     if (request_size == 16384) {
-      http_error_respond(connection, STATUS_413);
+      http_default_response(connection, STATUS_413);
       close(connection);
       pthread_exit(NULL);
     }
@@ -71,7 +71,7 @@ void* connection_main(void* connection_raw) {
   
   read_request();
   
-  http_error_respond(connection, STATUS_200);
+  http_default_response(connection, STATUS_200);
   
   close(connection);
   pthread_exit(NULL);

@@ -25,4 +25,4 @@ typedef enum {
 } status_t;
 
 status_t http_parse(char* request_buf, size_t request_size, method_t* method, char** uri, hashmap_t** hashmap);
-void http_error_respond(int connection, status_t status);
+void http_default_response(int connection, status_t status);

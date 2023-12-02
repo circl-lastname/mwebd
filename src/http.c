@@ -8,7 +8,7 @@ status_t http_parse(char* request_buf, size_t request_size, method_t* method, ch
   
 }
 
-void http_error_respond(int connection, status_t status) {
+void http_default_response(int connection, status_t status) {
   char* response;
   size_t response_size;
   
