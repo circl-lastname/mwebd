@@ -5,38 +5,40 @@
 
 #include "default_responses.h"
 
+_Thread_local static unsigned request_i;
+
 status_t http_parse(char* request_buf, size_t request_size, method_t* method, char** uri, hashmap_t** hashmap) {
-  unsigned i = 0;
+  request_i = 0;
   
   if (!memcmp(request_buf, "GET ", 4)) {
     *method = METHOD_GET;
-    i += 4;
+    request_i += 4;
   } else if (!memcmp(request_buf, "HEAD ", 5)) {
     *method = METHOD_HEAD;
-    i += 5;
+    request_i += 5;
   } else if (!memcmp(request_buf, "POST ", 5)) {
     *method = METHOD_POST;
-    i += 5;
+    request_i += 5;
   } else if (!memcmp(request_buf, "PUT ", 4)) {
     *method = METHOD_PUT;
-    i += 4;
+    request_i += 4;
   } else if (!memcmp(request_buf, "DELETE ", 7)) {
     *method = METHOD_DELETE;
-    i += 7;
+    request_i += 7;
   } else if (!memcmp(request_buf, "CONNECT ", 8)) {
     *method = METHOD_CONNECT;
-    i += 8;
+    request_i += 8;
   } else if (!memcmp(request_buf, "OPTIONS ", 8)) {
     *method = METHOD_OPTIONS;
-    i += 8;
+    request_i += 8;
   } else if (!memcmp(request_buf, "TRACE ", 6)) {
     *method = METHOD_TRACE;
-    i += 6;
+    request_i += 6;
   } else {
     return STATUS_501;
   }
   
-  if (i >= request_size) {
+  if (request_i >= request_size) {
     return STATUS_400;
   }
   
