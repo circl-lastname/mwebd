@@ -30,7 +30,7 @@ status_t http_parse(char* request_buf, size_t request_size, method_t* method, ch
     *method = METHOD_OPTIONS;
     i += 8;
   } else if (!memcmp(request_buf, "TRACE ", 6)) {
-    *method = METHOD_GET;
+    *method = METHOD_TRACE;
     i += 6;
   } else {
     return STATUS_501;
