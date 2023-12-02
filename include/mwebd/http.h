@@ -4,6 +4,7 @@
 
 #define ENUMERATE_STATUSES(f) \
   f(200) \
+  f(400) \
   f(413) \
   f(500) \
   f(501)

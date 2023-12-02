@@ -7,6 +7,15 @@ char response_200[] =
   "\r\n"
   "<!doctype html><html><head><title>200 OK</title></head><body><h1>200 OK</h1><p>This is an example page to signify that the server is operating correctly.</p><hr><p><i>MWebD</i></p></body></html>";
 
+char response_400[] =
+  "HTTP/1.1 400 Bad Request\r\n"
+  "Server: MWebD\r\n"
+  "Connection: close\r\n"
+  "Content-Type: text/html\r\n"
+  "Content-Length: 188\r\n"
+  "\r\n"
+  "<!doctype html><html><head><title>400 Bad Request</title></head><body><h1>400 Bad Request</h1><p>Your request is malformed and unable to be parsed.</p><hr><p><i>MWebD</i></p></body></html>";
+
 char response_413[] =
   "HTTP/1.1 413 Content Too Large\r\n"
   "Server: MWebD\r\n"

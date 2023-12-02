@@ -36,6 +36,10 @@ status_t http_parse(char* request_buf, size_t request_size, method_t* method, ch
     return STATUS_501;
   }
   
+  if (i >= request_size) {
+    return STATUS_400;
+  }
+  
   return STATUS_200;
 }
 
