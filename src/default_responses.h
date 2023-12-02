@@ -1,4 +1,4 @@
-char response_200[] =
+static char response_200[] =
   "HTTP/1.1 200 OK\r\n"
   "Server: MWebD\r\n"
   "Connection: close\r\n"
@@ -7,7 +7,7 @@ char response_200[] =
   "\r\n"
   "<!doctype html><html><head><title>200 OK</title></head><body><h1>200 OK</h1><p>This is an example page to signify that the server is operating correctly.</p><hr><p><i>MWebD</i></p></body></html>";
 
-char response_400[] =
+static char response_400[] =
   "HTTP/1.1 400 Bad Request\r\n"
   "Server: MWebD\r\n"
   "Connection: close\r\n"
@@ -16,7 +16,7 @@ char response_400[] =
   "\r\n"
   "<!doctype html><html><head><title>400 Bad Request</title></head><body><h1>400 Bad Request</h1><p>Your request is malformed and unable to be parsed.</p><hr><p><i>MWebD</i></p></body></html>";
 
-char response_413[] =
+static char response_413[] =
   "HTTP/1.1 413 Content Too Large\r\n"
   "Server: MWebD\r\n"
   "Connection: close\r\n"
@@ -25,7 +25,7 @@ char response_413[] =
   "\r\n"
   "<!doctype html><html><head><title>413 Content Too Large</title></head><body><h1>413 Content Too Large</h1><p>Your request is larger than 16 KiB.</p><hr><p><i>MWebD</i></p></body></html>";
 
-char response_500[] =
+static char response_500[] =
   "HTTP/1.1 500 Internal Server Error\r\n"
   "Server: MWebD\r\n"
   "Connection: close\r\n"
@@ -34,7 +34,7 @@ char response_500[] =
   "\r\n"
   "<!doctype html><html><head><title>500 Internal Server Error</title></head><body><h1>500 Internal Server Error</h1><p>An error occurred while processing your request.</p><hr><p><i>MWebD</i></p></body></html>";
 
-char response_501[] =
+static char response_501[] =
   "HTTP/1.1 501 Not Implemented\r\n"
   "Server: MWebD\r\n"
   "Connection: close\r\n"
