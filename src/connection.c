@@ -1,4 +1,5 @@
 #include <pthread.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 #include <mwebd/hashmap.h>
@@ -71,7 +72,22 @@ void* connection_main(void* connection_raw) {
   
   read_request();
   
-  http_default_response(connection, http_parse(request_buf, request_size, &method, &uri, &request_headers));
+  status_t parse_status = http_parse(request_buf, request_size, &method, &uri, &request_headers);
+  
+  if (parse_status != STATUS_200) {
+    if (uri) {
+      free(uri);
+    }
+    if (request_headers) {
+      hashmap_free(request_headers);
+    }
+    
+    http_default_response(connection, parse_status);
+    close(connection);
+    pthread_exit(NULL);
+  }
+  
+  http_default_response(connection, STATUS_200);
   
   close(connection);
   pthread_exit(NULL);
