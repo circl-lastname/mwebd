@@ -1,9 +1,31 @@
+#include <stddef.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
 #include <mwebd/http.h>
 
 #include "default_responses.h"
+
+#define NEXT \
+  i++; \
+  if (i == request_size) { \
+    return STATUS_400; \
+  }
+
+static bool parse_hex(char input, uint8_t* output) {
+  if (input >= '0' && input <= '9') {
+    *output = input - 0x30;
+  } else if (input >= 'a' && input <= 'f') {
+    *output = input - 0x61 + 10;
+  } else if (input >= 'A' && input <= 'F') {
+    *output = input - 0x41 + 10;
+  } else {
+    return false;
+  }
+  
+  return true;
+}
 
 status_t http_parse(char* request_buf, size_t request_size, method_t* method, char** uri, hashmap_t** hashmap) {
   unsigned i = 0;
@@ -38,6 +60,60 @@ status_t http_parse(char* request_buf, size_t request_size, method_t* method, ch
   
   if (i >= request_size) {
     return STATUS_400;
+  }
+  
+  {
+    *uri = malloc(64);
+    if (!*uri) {
+      return STATUS_500;
+    }
+    
+    size_t uri_size = 32;
+    
+    unsigned j = 0;
+    
+    while (true) {
+      switch (request_buf[i]) {
+        case ' ':
+          NEXT
+          goto break_loop;
+        break;
+        case '%': {
+          uint8_t n1;
+          uint8_t n2;
+          
+          NEXT
+          if (!parse_hex(request_buf[i], &n1)) {
+            return STATUS_400;
+          }
+          
+          NEXT
+          if (!parse_hex(request_buf[i], &n2)) {
+            return STATUS_400;
+          }
+          
+          uint8_t n = (n1 << 4) | n2;
+          (*uri)[j] = n;
+        } break;
+        default:
+          (*uri)[j] = request_buf[i];
+        break;
+      }
+      
+      j++;
+      NEXT
+      
+      if (j >= uri_size) {
+        uri_size *= 2;
+        *uri = realloc(*uri, uri_size);
+        if (!*uri) {
+          return STATUS_500;
+        }
+      }
+    }
+    break_loop:
+    
+    (*uri)[j] = '\0';
   }
   
   return STATUS_200;
