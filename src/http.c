@@ -115,6 +115,16 @@ status_t http_parse(char* request_buf, size_t request_size, method_t* method, ch
     (*uri)[j] = '\0';
   }
   
+  if (i+10 >= request_size) {
+    return STATUS_400;
+  }
+  
+  if (memcmp(&request_buf[i], "HTTP/1.1\r\n", 10)) {
+    return STATUS_505;
+  }
+  
+  i += 10;
+  
   return STATUS_200;
 }
 

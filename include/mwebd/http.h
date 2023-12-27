@@ -7,7 +7,8 @@
   f(400) \
   f(413) \
   f(500) \
-  f(501)
+  f(501) \
+  f(505)
 
 typedef enum {
   METHOD_GET,

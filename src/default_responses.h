@@ -42,3 +42,12 @@ static char response_501[] =
   "Content-Length: 186\r\n"
   "\r\n"
   "<!doctype html><html><head><title>501 Not Implemented</title></head><body><h1>501 Not Implemented</h1><p>Your request's method is not recognized.</p><hr><p><i>MWebD</i></p></body></html>";
+
+static char response_505[] =
+  "HTTP/1.1 505 HTTP Version Not Supported\r\n"
+  "Server: MWebD\r\n"
+  "Connection: close\r\n"
+  "Content-Type: text/html\r\n"
+  "Content-Length: 211\r\n"
+  "\r\n"
+  "<!doctype html><html><head><title>505 HTTP Version Not Supported</title></head><body><h1>505 HTTP Version Not Supported</h1><p>Your request's HTTP version is unsupported.</p><hr><p><i>MWebD</i></p></body></html>";
