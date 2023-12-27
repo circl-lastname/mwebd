@@ -92,8 +92,7 @@ status_t http_parse(char* request_buf, size_t request_size, method_t* method, ch
             return STATUS_400;
           }
           
-          uint8_t n = (n1 << 4) | n2;
-          (*uri)[j] = n;
+          (*uri)[j] = (n1 << 4) | n2;
         } break;
         default:
           (*uri)[j] = request_buf[i];
