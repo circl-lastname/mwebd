@@ -96,14 +96,15 @@ status_t http_parse(char* request_buf, size_t request_size, method_t* method, ch
           
           if (n != '\0') {
             (*uri)[j] = n;
+            j++;
           }
         } break;
         default:
           (*uri)[j] = request_buf[i];
+          j++;
         break;
       }
       
-      j++;
       NEXT
       
       if (j >= uri_size) {
